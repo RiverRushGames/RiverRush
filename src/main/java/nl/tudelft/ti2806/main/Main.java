@@ -7,7 +7,7 @@ package nl.tudelft.ti2806.main;
 public final class Main {
 
     /**
-     * Can't construct Main. 
+     * Can't construct Main.  
      */
     private Main() { }
 
