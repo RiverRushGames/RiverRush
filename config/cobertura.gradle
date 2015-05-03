@@ -1,0 +1,10 @@
+apply plugin: 'net.saliman.cobertura'
+
+cobertura {
+    coberturaVersion = '2.1.1'
+    coverageFormats = [ 'html' ]
+    coverageIgnoreTrivial = true
+    coverageReportDir = file("${buildDir}/reports/cobertura")
+}
+
+check.finalizedBy(project.tasks.cobertura)

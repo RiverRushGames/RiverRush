@@ -1,0 +1,16 @@
+apply plugin: 'findbugs'
+
+findbugs {
+    ignoreFailures = true
+    toolVersion = "3.0.1"
+    sourceSets = [ project.sourceSets.main ]
+    reportsDir = file("${project.buildDir}/reports/findbugs")
+    effort = "max"
+}
+
+findbugsMain {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}

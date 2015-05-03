@@ -6,3 +6,11 @@ branches:
   only:
     - master
     - develop
+
+notifications:
+  webhooks:
+    urls: 
+        - https://zapier.com/hooks/catch/btkhbf/
+    on_success: always
+    on_failure: always 
+    on_start: never 

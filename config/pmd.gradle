@@ -1,0 +1,14 @@
+apply plugin: 'pmd'
+
+pmdMain {
+    ignoreFailures = true
+    ruleSetFiles = files("${rootProject.rootDir}/config/pmd.xml")
+    ruleSets = [ ]
+
+}
+
+pmdTest {
+    ignoreFailures = true
+    ruleSetFiles = files("${rootProject.rootDir}/config/pmd-test.xml")
+    ruleSets = [ ]
+}
