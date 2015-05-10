@@ -1,0 +1,15 @@
+apply plugin: "jacoco"
+
+jacoco {
+    toolVersion = "0.7.4.201502262128"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/reports/JaCoCo"
+    }
+}
+
+check.finalizedBy(project.tasks.jacocoTestReport)
