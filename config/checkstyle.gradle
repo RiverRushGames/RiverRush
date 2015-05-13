@@ -1,0 +1,37 @@
+apply plugin: 'checkstyle'
+
+checkstyleMain {
+    ignoreFailures = true
+    reports {
+        include ( '**/*.java')
+        xml {
+           destination "${buildDir}/reports/checkstyle/main.xml" 
+        }
+    }
+    configFile = new File("${rootProject.rootDir}/config/checkstyle-test.xml")
+} 
+
+checkstyleTest {
+    ignoreFailures = true
+    reports {
+        include ( '**/*.java')
+        xml {
+           destination "${buildDir}/reports/checkstyle/test.xml" 
+        }
+    }
+    configFile = new File("${rootProject.rootDir}/config/checkstyle.xml")
+} 
+ 
+check << {
+    genReport("main")
+    genReport("test")
+}
+
+def genReport(type) {
+    if (file("$buildDir/reports/checkstyle/${type}.xml").exists()) {
+        ant.xslt(in: "$buildDir/reports/checkstyle/${type}.xml",
+            style:"${rootProject.rootDir}/config/checkstyle.xsl",
+            out:"$buildDir/reports/checkstyle/${type}.html"
+        )
+    }
+}
