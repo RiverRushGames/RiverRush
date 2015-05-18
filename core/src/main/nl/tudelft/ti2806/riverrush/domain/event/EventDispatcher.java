@@ -40,4 +40,6 @@ public interface EventDispatcher {
     void dispatch(Event event);
 
     InetSocketAddress getRemoteAddress();
+
+    void setRemoteAddress(InetSocketAddress address);
 }

@@ -76,6 +76,7 @@ public class Server extends WebSocketServer {
 
         EventDispatcher dispatcher = this.dispatcherProvider.get();
         dispatcher.register(SendEvent.class, sendEventEventListener);
+        dispatcher.setRemoteAddress(conn.getRemoteSocketAddress());
         this.eventDispatchers.put(conn.getRemoteSocketAddress(), dispatcher);
         this.sockets.put(conn.getRemoteSocketAddress(), conn);
     }
