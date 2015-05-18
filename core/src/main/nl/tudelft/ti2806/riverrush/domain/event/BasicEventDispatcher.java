@@ -65,7 +65,7 @@ public class BasicEventDispatcher implements EventDispatcher {
     }
 
     @Override
-    public void setRemoteAddress(InetSocketAddress address) {
+    public void setRemoteAddress(final InetSocketAddress address) {
         this.remoteAddress = address;
     }
 }
