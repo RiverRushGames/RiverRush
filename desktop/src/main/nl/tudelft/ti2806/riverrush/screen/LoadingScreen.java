@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import nl.tudelft.ti2806.riverrush.Assets;
 import nl.tudelft.ti2806.riverrush.domain.event.AssetsLoadedEvent;
 import nl.tudelft.ti2806.riverrush.domain.event.EventDispatcher;
 
@@ -23,9 +24,7 @@ public class LoadingScreen implements Screen {
 
     private final AssetManager assets;
 
-    public static String getFileName(String name) {
-        return "data/" + name;
-    }
+
 
     public LoadingScreen(final AssetManager assetManager, EventDispatcher eventDispatcher) {
         this.assets = assetManager;
@@ -56,17 +55,17 @@ public class LoadingScreen implements Screen {
         this.stage.addActor(image);
 
         //Load all images/textures that we will use
-        this.assets.load(getFileName("boat.jpg"), Texture.class);
-        this.assets.load(getFileName("shipv2.png"), Texture.class);
-        this.assets.load(getFileName("ship.png"), Texture.class);
-        this.assets.load(getFileName("raccoon.png"), Texture.class);
-        this.assets.load(getFileName("pirateship.png"), Texture.class);
-        this.assets.load(getFileName("left.jpg"), Texture.class);
-        this.assets.load(getFileName("grass.jpg"), Texture.class);
-        this.assets.load(getFileName("river.jpg"), Texture.class);
-        this.assets.load(getFileName("cannonball.png"), Texture.class);
-        this.assets.load(getFileName("win.png"), Texture.class);
-        this.assets.load(getFileName("lose.png"), Texture.class);
+        this.assets.load(Assets.boat, Texture.class);
+        this.assets.load(Assets.shipv2, Texture.class);
+        this.assets.load(Assets.ship, Texture.class);
+        this.assets.load(Assets.raccoon, Texture.class);
+        this.assets.load(Assets.pirateship, Texture.class);
+        this.assets.load(Assets.left, Texture.class);
+        this.assets.load(Assets.grass, Texture.class);
+        this.assets.load(Assets.river, Texture.class);
+        this.assets.load(Assets.cannonball, Texture.class);
+        this.assets.load(Assets.win, Texture.class);
+        this.assets.load(Assets.lose, Texture.class);
     }
 
     @Override

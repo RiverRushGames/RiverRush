@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.google.inject.Inject;
+import nl.tudelft.ti2806.riverrush.Assets;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.forever;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
@@ -52,7 +53,7 @@ public class River extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        Texture tex = this.manager.get("data/river.jpg", Texture.class);
+        Texture tex = this.manager.get(Assets.river, Texture.class);
         TextureRegion region = new TextureRegion(tex, 0, 0, END_REGIONX, END_REGIONY);
         batch.draw(region, this.getX(), this.getY(), this.getOriginX(), this.getOriginY(),
             this.getWidth(), this.getHeight() * 2, this.getScaleX(), this.getScaleY(),

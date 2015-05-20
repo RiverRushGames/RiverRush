@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.google.inject.Inject;
+import nl.tudelft.ti2806.riverrush.Assets;
 import nl.tudelft.ti2806.riverrush.desktop.MainDesktop;
 import nl.tudelft.ti2806.riverrush.domain.event.EventDispatcher;
 
@@ -54,7 +55,8 @@ public class WaitingScreen implements Screen {
         this.skin = new Skin(Gdx.files.internal("uiskin.json"), this.atlas);
         this.stage = new Stage();
 
-        Texture texture = new Texture(Gdx.files.internal("data/loading.jpeg"));
+        Texture texture = new Texture(
+            Gdx.files.internal(Assets.loading));
         TextureRegion region = new TextureRegion(texture, 0, 0,
             MainDesktop.WIDTH, MainDesktop.HEIGHT);
 
