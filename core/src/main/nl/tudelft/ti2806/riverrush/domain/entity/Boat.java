@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.google.inject.Inject;
 import nl.tudelft.ti2806.riverrush.domain.event.EventDispatcher;
+import nl.tudelft.ti2806.riverrush.Assets;
 
 /**
  * Represents a boat that the animals row on.
@@ -51,7 +52,7 @@ public class Boat extends AbstractGroup {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        Texture tex = this.manager.get("data/shipv2.png", Texture.class);
+        Texture tex = this.manager.get(Assets.ship, Texture.class);
         TextureRegion region = new TextureRegion(tex, 0, 0, REGION_ENDX, REGION_ENDY);
         batch.enableBlending();
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);

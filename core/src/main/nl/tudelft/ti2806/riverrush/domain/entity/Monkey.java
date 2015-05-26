@@ -9,11 +9,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.google.inject.Inject;
+
 import nl.tudelft.ti2806.riverrush.domain.entity.state.AnimalOnBoat;
 import nl.tudelft.ti2806.riverrush.domain.event.EventDispatcher;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import nl.tudelft.ti2806.riverrush.Assets;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
@@ -63,7 +66,7 @@ public class Monkey extends AbstractAnimal {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        Texture tex = this.manager.get("data/raccoon.png", Texture.class);
+        Texture tex = this.manager.get(Assets.raccoon, Texture.class);
         TextureRegion region = new TextureRegion(tex, 0, 0, END_REGIONX, END_REGIONY);
 
         batch.enableBlending();

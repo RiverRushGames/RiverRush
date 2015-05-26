@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import nl.tudelft.ti2806.riverrush.Assets;
 import nl.tudelft.ti2806.riverrush.desktop.MainDesktop;
 import nl.tudelft.ti2806.riverrush.domain.entity.Monkey;
 import nl.tudelft.ti2806.riverrush.domain.entity.Player;
@@ -106,7 +107,7 @@ public class PlayingGameScreen implements Screen {
     /**
      * Draw left sandy beach.
      */
-    public void drawLeftBanks() {
+    private void drawLeftBanks() {
         this.banksLeft.act(Gdx.graphics.getDeltaTime());
         int width = (int) (Gdx.graphics.getWidth() * BANKSIZE);
         Gdx.gl.glViewport(0, 0, width, // 0 - 0.05
@@ -117,7 +118,7 @@ public class PlayingGameScreen implements Screen {
     /**
      * Draw right river with stuff.
      */
-    public void drawLeftStage() {
+    private void drawLeftStage() {
         this.leftStage.act(Gdx.graphics.getDeltaTime());
         int start = (int) (Gdx.graphics.getWidth() * FIRSTBANKEDGE);
         int width = (int) (Gdx.graphics.getWidth() * SCREENSIZE);
@@ -129,7 +130,7 @@ public class PlayingGameScreen implements Screen {
     /**
      * Draw the progressbar.
      */
-    public void drawMidStage() {
+    private void drawMidStage() {
         this.midStage.act(Gdx.graphics.getDeltaTime());
         int start = (int) (Gdx.graphics.getWidth() * LEFTSCREENEDGE);
         int width = (int) (Gdx.graphics.getWidth() * MIDSIZE);
@@ -141,7 +142,7 @@ public class PlayingGameScreen implements Screen {
     /**
      * Draw left river with stuff.
      */
-    public void drawRightStage() {
+    private void drawRightStage() {
         this.rightStage.act(Gdx.graphics.getDeltaTime());
         int start = (int) (Gdx.graphics.getWidth() * MIDEDGE);
         int width = (int) (Gdx.graphics.getWidth() * SCREENSIZE);
@@ -153,7 +154,7 @@ public class PlayingGameScreen implements Screen {
     /**
      * Draw left sandy beach.
      */
-    public void drawRightBanks() {
+    private void drawRightBanks() {
         this.banksRight.act(Gdx.graphics.getDeltaTime());
         int start = (int) (Gdx.graphics.getWidth() * RIGHTSCREENEDGE);
         int width = (int) (Gdx.graphics.getWidth() * BANKSIZE);
@@ -165,7 +166,7 @@ public class PlayingGameScreen implements Screen {
     @Override
     public void show() {
         // Get texture
-        Texture tex = this.assets.get("data/grass.jpg", Texture.class);
+        Texture tex = this.assets.get(Assets.grass, Texture.class);
         TextureRegion region = new TextureRegion(tex, 0, 0, ENDTEXTUREX,
             ENDTEXTUREY);
 

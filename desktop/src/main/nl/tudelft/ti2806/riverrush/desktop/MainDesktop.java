@@ -1,10 +1,12 @@
 package nl.tudelft.ti2806.riverrush.desktop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import javafx.application.Application;
 import nl.tudelft.ti2806.riverrush.CoreModule;
 import nl.tudelft.ti2806.riverrush.controller.Controller;
 import nl.tudelft.ti2806.riverrush.controller.RenderController;

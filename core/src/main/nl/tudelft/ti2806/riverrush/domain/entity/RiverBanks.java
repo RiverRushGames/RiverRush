@@ -6,11 +6,11 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.google.inject.Inject;
+import nl.tudelft.ti2806.riverrush.Assets;
 
 public class RiverBanks extends Actor {
 
     private AssetManager manager;
-    private static final String FILENAME = "data/grass.jpg";
 
     private static final int END_REGIONX = 229;
     private static final int END_REGIONY = 138;
@@ -35,7 +35,7 @@ public class RiverBanks extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        Texture tex = this.manager.get(FILENAME, Texture.class);
+        Texture tex = this.manager.get(Assets.grass, Texture.class);
         TextureRegion region = new TextureRegion(tex, 0, 0, END_REGIONX, END_REGIONY);
         batch.draw(region, this.getX(), this.getY(), this.getWidth(), this.getHeight());
     }
