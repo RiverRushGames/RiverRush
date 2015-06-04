@@ -12,5 +12,7 @@ public class BasicGameTrack extends GameTrack {
         super(dispatcher);
         this.addTeam(new Team());
         this.addTeam(new Team());
+
+        // this.parseLevel(-"-#--#--#--#--#-");
     }
 }
