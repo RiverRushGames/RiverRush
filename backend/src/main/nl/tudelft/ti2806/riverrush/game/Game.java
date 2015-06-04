@@ -1,7 +1,9 @@
 package nl.tudelft.ti2806.riverrush.game;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import nl.tudelft.ti2806.riverrush.domain.entity.AbstractAnimal;
 import nl.tudelft.ti2806.riverrush.domain.event.AnimalAddedEvent;
 import nl.tudelft.ti2806.riverrush.domain.event.EventDispatcher;
@@ -10,9 +12,8 @@ import nl.tudelft.ti2806.riverrush.domain.event.HandlerLambda;
 import nl.tudelft.ti2806.riverrush.game.state.GameState;
 import nl.tudelft.ti2806.riverrush.game.state.WaitingForRendererState;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * Represents an ongoing or waiting game.
@@ -68,6 +69,7 @@ public class Game {
      */
     public void start() {
         this.gameState = this.gameState.start();
+        this.gameTrack.startTimer();
     }
 
     /**
@@ -95,7 +97,7 @@ public class Game {
      * Add the player to the team.
      *
      * @param animal The animal
-     * @param team   The team
+     * @param team The team
      */
     public void addPlayerToTeam(final AbstractAnimal animal, final Integer team) {
         try {

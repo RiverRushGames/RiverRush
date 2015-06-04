@@ -1,17 +1,18 @@
 package nl.tudelft.ti2806.riverrush.desktop;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import java.net.URISyntaxException;
+
 import nl.tudelft.ti2806.riverrush.CoreModule;
 import nl.tudelft.ti2806.riverrush.controller.Controller;
 import nl.tudelft.ti2806.riverrush.controller.RenderController;
 import nl.tudelft.ti2806.riverrush.game.Game;
 import nl.tudelft.ti2806.riverrush.network.Client;
 
-import java.net.URISyntaxException;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 /**
  * This class is the main class to be ran when starting the game. This class sets up the graphics
@@ -48,6 +49,65 @@ public class MainDesktop extends CoreModule {
 
         this.setupGraphics();
         client.connect();
+
+        // try {
+        // Thread.sleep(2000);
+        // } catch (InterruptedException e) {
+        // e.printStackTrace();
+        // }
+        // this.injector.getInstance(EventDispatcher.class).dispatch(new GameAboutToStartEvent());
+        //
+        // try {
+        // Thread.sleep(2000);
+        // } catch (InterruptedException e) {
+        // e.printStackTrace();
+        // }
+        // this.injector.getInstance(EventDispatcher.class).dispatch(new GameStartedEvent());
+        // try {
+        // Thread.sleep(2000);
+        // } catch (InterruptedException e) {
+        // e.printStackTrace();
+        // }
+        // AnimalAddedEvent ev = new AnimalAddedEvent();
+        // for (int i = 0; i < 10; i++) {
+        // try {
+        // Thread.sleep(100);
+        // } catch (InterruptedException e) {
+        // e.printStackTrace();
+        // }
+        // ev = new AnimalAddedEvent();
+        // ev.setAnimal(i);
+        // ev.setTeam(i % 2);
+        // this.injector.getInstance(EventDispatcher.class).dispatch(ev);
+        // }
+
+        //
+        // AnimalJumpedEvent jev = new AnimalJumpedEvent();
+        // for (int i = 0; i < 5; i++) {
+        // try {
+        // Thread.sleep(100);
+        // } catch (InterruptedException e) {
+        // e.printStackTrace();
+        // }
+        // jev = new AnimalJumpedEvent();
+        // jev.setAnimal(i);
+        // jev.setTeam(i % 2);
+        // this.injector.getInstance(EventDispatcher.class).dispatch(jev);
+        // }
+        // try {
+        // Thread.sleep(1000);
+        // } catch (InterruptedException e) {
+        // e.printStackTrace();
+        // }
+        // AddObstacleEvent ev3 = new AddObstacleEvent();
+        // ev3.setAnimal(1);
+        // ev3.setTeam(0);
+        // ev3.setLocation(0.5);
+        // this.injector.getInstance(EventDispatcher.class).dispatch(ev3);
+
+        // GameFinishedEvent fev = new GameFinishedEvent();
+        // this.injector.getInstance(EventDispatcher.class).dispatch(fev);
+
     }
 
     /**
