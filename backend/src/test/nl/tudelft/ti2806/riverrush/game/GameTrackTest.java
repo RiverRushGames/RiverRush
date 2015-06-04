@@ -3,6 +3,7 @@ package nl.tudelft.ti2806.riverrush.game;
 import nl.tudelft.ti2806.riverrush.domain.entity.AbstractAnimal;
 import nl.tudelft.ti2806.riverrush.domain.entity.Animal;
 import nl.tudelft.ti2806.riverrush.domain.entity.Team;
+import nl.tudelft.ti2806.riverrush.domain.event.AddObstacleEvent;
 import nl.tudelft.ti2806.riverrush.domain.event.EventDispatcher;
 import nl.tudelft.ti2806.riverrush.domain.event.GameFinishedEvent;
 import org.junit.Before;
@@ -28,7 +29,7 @@ public class GameTrackTest {
     @Before
     public void setUp() throws Exception {
         dispatcher = Mockito.spy(EventDispatcher.class);
-        track = new GameTrack(dispatcher);
+        track = new GameTrack("-#--#--#--#--#-", dispatcher);
         team = new Team();
         track.addTeam(team);
     }
@@ -88,7 +89,7 @@ public class GameTrackTest {
             track.updateProgress();
         }
 
-        Mockito.verify(dispatcher, Mockito.times(1)).dispatch(Mockito.any(GameFinishedEvent.class));
+        Mockito.verify(dispatcher, Mockito.times(1)).dispatch(Mockito.isA(GameFinishedEvent.class));
 
         assertEquals(GameTrack.trackLength + 1, track.getDistanceTeam(team.getId()), delta);
     }
@@ -142,7 +143,19 @@ public class GameTrackTest {
     }
 
     @Test
-    public void testGetTeam() throws Exception {
-
+    public void testParseLevel() throws Exception {
+        assertEquals(track.levelMap.get(10), 0.5, delta);
     }
+
+    @Test
+    public void testDispatchObstacleAt10() throws Exception {
+        Animal animal = new Animal(dispatcher);
+        team.addAnimal(animal);
+
+        track.updateCannonballObstacles(team, 10.0);
+
+        Mockito.verify(dispatcher, Mockito.times(1)).dispatch(Mockito.isA(AddObstacleEvent.class));
+    }
+
+
 }

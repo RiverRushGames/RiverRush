@@ -8,11 +8,15 @@ import nl.tudelft.ti2806.riverrush.domain.event.EventDispatcher;
  */
 public class BasicGameTrack extends GameTrack {
 
+    /**
+     * Create a basic level.
+     * @param dispatcher - See {@link EventDispatcher}
+     */
     public BasicGameTrack(final EventDispatcher dispatcher) {
-        super(dispatcher);
+        super("-#--#--#--#--#-", dispatcher);
         this.addTeam(new Team());
         this.addTeam(new Team());
 
-        // this.parseLevel(-"-#--#--#--#--#-");
+        // this.parseLevel(-);
     }
 }

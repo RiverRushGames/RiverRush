@@ -1,10 +1,5 @@
 package nl.tudelft.ti2806.riverrush.game;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import nl.tudelft.ti2806.riverrush.domain.entity.AbstractAnimal;
 import nl.tudelft.ti2806.riverrush.domain.entity.Animal;
 import nl.tudelft.ti2806.riverrush.domain.entity.Team;
@@ -13,8 +8,13 @@ import nl.tudelft.ti2806.riverrush.domain.event.EventDispatcher;
 import nl.tudelft.ti2806.riverrush.domain.event.GameFinishedEvent;
 import nl.tudelft.ti2806.riverrush.domain.event.TeamProgressEvent;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
- * Abstract representation of a game track.
+ * Representation of a game track.
  */
 public class GameTrack {
 
@@ -24,21 +24,30 @@ public class GameTrack {
 
     private HashMap<Integer, Team> teams;
     private HashMap<Integer, Double> distances;
-    private final HashMap<Integer, Double> levelMap;
+    protected final HashMap<Integer, Double> levelMap;
 
     private EventDispatcher dispatcher;
 
-    public GameTrack(final EventDispatcher dispatch) {
+    /**
+     * Create a gametrack.
+     *
+     * @param level    - String which will determine when to add an cannonball
+     * @param dispatch - See {@link EventDispatcher}
+     */
+    public GameTrack(final String level, final EventDispatcher dispatch) {
         this.dispatcher = dispatch;
         this.teams = new HashMap<>();
         this.distances = new HashMap<>();
         this.levelMap = new HashMap<>();
-
-        this.parseLevel("-#--#--#--#--#-");
-
+        parseLevel(level);
     }
 
-    public void parseLevel(String level) {
+    /**
+     * This will parse the level for you.
+     *
+     * @param level - String that represents when the cannonballs need to start flying
+     */
+    public void parseLevel(final String level) {
         for (int i = 0; i < level.length(); i++) {
             char c = level.charAt(i);
             if (c == '#') {
@@ -47,6 +56,9 @@ public class GameTrack {
         }
     }
 
+    /**
+     * Start updating the gametrack.
+     */
     public void startTimer() {
         Timer tmr = new Timer();
         tmr.scheduleAtFixedRate(new TimerTask() {
@@ -57,22 +69,25 @@ public class GameTrack {
         }, UPDATE_DELAY, UPDATE_DELAY);
     }
 
+    /**
+     * This method will update the progress of the gametrack.
+     */
     protected void updateProgress() {
         ArrayList<Team> finishedTeams = new ArrayList<>();
         for (Team team : this.teams.values()) {
             Double speed = this.getSpeed(team);
+            if (speed == Double.NaN) {
+                speed = 0.0;
+            }
             Double currentDistance = this.distances.get(team.getId());
             this.distances.put(team.getId(), currentDistance + speed);
 
-            if (currentDistance + speed > 100) {
+            if (currentDistance + speed > this.trackLength) {
                 finishedTeams.add(team);
             }
-            if (this.levelMap.get(currentDistance.intValue()) != null) {
-                AddObstacleEvent addEvent = new AddObstacleEvent();
-                addEvent.setTeam(team.getId());
-                addEvent.setLocation(0.5);
-                this.dispatcher.dispatch(addEvent);
-            }
+
+            updateCannonballObstacles(team, currentDistance);
+
             TeamProgressEvent event = new TeamProgressEvent();
             event.setProgress(currentDistance + speed);
             event.setTeamID(team.getId());
@@ -88,11 +103,28 @@ public class GameTrack {
     }
 
     /**
-     * Checks which team won
+     * This will check if it is time for the team to
+     * get a cannonball to their faces.
+     *
+     * @param team            - The team
+     * @param currentDistance - The distance this team has travelled
+     */
+    protected void updateCannonballObstacles(final Team team, final Double currentDistance) {
+        if (this.levelMap.get(currentDistance.intValue()) != null) {
+            AddObstacleEvent addEvent = new AddObstacleEvent();
+            addEvent.setTeam(team.getId());
+            addEvent.setLocation(0.5);
+            this.dispatcher.dispatch(addEvent);
+        }
+    }
+
+    /**
+     * Checks which team won.
+     *
      * @param finishedTeams - allTeam that won
      * @return the winning team
      */
-    protected Team determineWinningTeam(ArrayList<Team> finishedTeams) {
+    protected Team determineWinningTeam(final ArrayList<Team> finishedTeams) {
         Team finished = null;
         Double maxDistance = 0.0;
 
@@ -149,7 +181,7 @@ public class GameTrack {
      * @throws NoSuchTeamException - if team is not found
      */
     public void addAnimal(final Integer teamID, final AbstractAnimal animal)
-            throws NoSuchTeamException {
+        throws NoSuchTeamException {
         if (!this.teams.containsKey(teamID)) {
             throw new NoSuchTeamException();
         }
@@ -158,10 +190,18 @@ public class GameTrack {
         animal.setTeamId(teamID);
     }
 
+    /**
+     * @param team - The team.
+     * @return the distance the team has traveled
+     */
     public Double getDistanceTeam(final Integer team) {
         return this.distances.get(team);
     }
 
+    /**
+     * @param team - Integer that represents a team
+     * @return the team
+     */
     public Team getTeam(final Integer team) {
         return this.teams.get(team);
     }
