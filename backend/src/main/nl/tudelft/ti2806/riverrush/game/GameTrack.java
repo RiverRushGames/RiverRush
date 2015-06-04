@@ -39,12 +39,10 @@ public class GameTrack {
     }
 
     public void parseLevel(String level) {
-        // -#--#--#--#--#-
         for (int i = 0; i < level.length(); i++) {
             char c = level.charAt(i);
             if (c == '#') {
-                // TODO dont increase interval on #
-                this.levelMap.put(i * this.DISTANCE_INTERVAL, 0.5);
+                this.levelMap.put((i - this.levelMap.size()) * this.DISTANCE_INTERVAL, 0.5);
             }
         }
     }
