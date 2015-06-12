@@ -79,7 +79,7 @@ public class MainDesktop extends CoreModule {
 
         this.eventDispatcher.dispatch(new GameStartedEvent());
 
-        Thread.sleep(5000);
+        Thread.sleep(2000);
 
         AddRockEvent event = new AddRockEvent();
         event.setLocation(Direction.NEUTRAL);

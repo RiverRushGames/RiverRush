@@ -1,6 +1,7 @@
 package nl.tudelft.ti2806.riverrush.graphics.entity;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -84,6 +85,9 @@ public class RockGraphic extends AbstractObstacle {
         TextureRegion region = new TextureRegion(tex, 0, 0, TEXTURE_SIZE_X, TEXTURE_SIZE_Y);
         batch.enableBlending();
 
+        Color color = this.getColor();
+        batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+
         Vector2 v = new Vector2(this.getWidth() / 2, this.getHeight() / 2);
         this.localToStageCoordinates(v);
 
@@ -92,6 +96,7 @@ public class RockGraphic extends AbstractObstacle {
         batch.draw(region, this.getX(), this.getY(), this.getOriginX(), this.getOriginY(),
                 this.getWidth(), this.getHeight(), this.getScaleX(), this.getScaleY(),
                 this.getRotation());
+
     }
 
     /**
@@ -110,8 +115,29 @@ public class RockGraphic extends AbstractObstacle {
         return this.direction;
     }
 
+    /**
+     * Display the collide animation on the rock
+     * and then remove the rock from the game.
+     */
     public void collideAnimation() {
-        this.addAction(sequence(parallel(Actions.scaleTo(0, 0, 1f), Actions.rotateBy(360f, 1f)),
+        final int shakeCount = 10;
+        final int shakeDistance = 20;
+        final float shakeSpeed = 0.02f;
+
+        this.addAction(
+            sequence(
+            parallel(
+                Actions.scaleTo(0, 0, 1f),
+                Actions.moveBy(-800, 0, 1f),
+                Actions.repeat(shakeCount, (
+                    Actions.sequence(
+                        Actions.moveBy(shakeDistance, 0, shakeSpeed),
+                        Actions.moveBy(-shakeDistance, 0, shakeSpeed),
+                        Actions.moveBy(0, shakeDistance, shakeSpeed),
+                        Actions.moveBy(0, -shakeDistance, shakeSpeed)
+                    )
+                )),
+                Actions.fadeOut(1f)),
             new Action() {
                 @Override
                 public boolean act(float delta) {
