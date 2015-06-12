@@ -138,6 +138,7 @@ public class PlayingGameState extends AbstractGameState {
             Team team = this.game.getTeam(0);
             BoatGroup boat = team.getBoat();
             if (graphic.calculateCollision(boat)) {
+                graphic.collideAnimation();
                 BoatCollidedEvent event = new BoatCollidedEvent();
                 event.setTeam(team.getId());
                 event.setDirection(graphic.getDirection());
@@ -148,6 +149,7 @@ public class PlayingGameState extends AbstractGameState {
             Team team = this.game.getTeam(1);
             BoatGroup boat = team.getBoat();
             if (graphic.calculateCollision(boat)) {
+                graphic.collideAnimation();
                 BoatCollidedEvent event = new BoatCollidedEvent();
                 event.setTeam(team.getId());
                 event.setDirection(graphic.getDirection());

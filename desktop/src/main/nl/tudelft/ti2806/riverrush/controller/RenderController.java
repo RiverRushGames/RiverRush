@@ -46,7 +46,7 @@ public class RenderController implements Controller {
         this.dispatcher.attach(GameFinishedEvent.class, this.onGameFinishedLambda);
         this.dispatcher.attach(AssetsLoadedEvent.class, this.onAssetsLoadedLambda);
         this.dispatcher.attach(AnimalCollidedEvent.class, this.sendOverNetworkLambda);
-        this.dispatcher.attach(BoatCollidedEvent.class, this.sendOverNetworkLambda);
+        //this.dispatcher.attach(BoatCollidedEvent.class, this.sendOverNetworkLambda);
     }
 
     @Override

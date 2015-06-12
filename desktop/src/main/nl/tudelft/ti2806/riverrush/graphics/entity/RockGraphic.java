@@ -6,10 +6,14 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-
 import nl.tudelft.ti2806.riverrush.desktop.MainDesktop;
 import nl.tudelft.ti2806.riverrush.domain.event.Direction;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 public class RockGraphic extends AbstractObstacle {
 
@@ -60,6 +64,7 @@ public class RockGraphic extends AbstractObstacle {
         this.setWidth(SIZE);
         this.setHeight(SIZE * DESKTOP_HEIGHT / DESKTOP_WIDTH / 2);
         this.setPosition((DESKTOP_WIDTH * this.offset) - SIZE / 2, DESKTOP_HEIGHT); // 1080
+        this.setOrigin(SIZE / 2, SIZE / 2);
 
         Vector2 v = new Vector2(this.getWidth() / 2, this.getHeight() / 2);
         this.localToStageCoordinates(v);
@@ -105,4 +110,14 @@ public class RockGraphic extends AbstractObstacle {
         return this.direction;
     }
 
+    public void collideAnimation() {
+        this.addAction(sequence(parallel(Actions.scaleTo(0, 0, 1f), Actions.rotateBy(360f, 1f)),
+            new Action() {
+                @Override
+                public boolean act(float delta) {
+                    RockGraphic.this.remove();
+                    return true;
+                }
+            }));
+    }
 }

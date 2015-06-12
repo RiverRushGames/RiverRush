@@ -8,7 +8,13 @@ import com.google.inject.Injector;
 import nl.tudelft.ti2806.riverrush.CoreModule;
 import nl.tudelft.ti2806.riverrush.controller.Controller;
 import nl.tudelft.ti2806.riverrush.controller.RenderController;
+import nl.tudelft.ti2806.riverrush.domain.entity.Sector;
+import nl.tudelft.ti2806.riverrush.domain.event.AddRockEvent;
+import nl.tudelft.ti2806.riverrush.domain.event.AnimalAddedEvent;
+import nl.tudelft.ti2806.riverrush.domain.event.Direction;
 import nl.tudelft.ti2806.riverrush.domain.event.EventDispatcher;
+import nl.tudelft.ti2806.riverrush.domain.event.GameAboutToStartEvent;
+import nl.tudelft.ti2806.riverrush.domain.event.GameStartedEvent;
 import nl.tudelft.ti2806.riverrush.game.Game;
 import nl.tudelft.ti2806.riverrush.network.Client;
 
@@ -53,6 +59,52 @@ public class MainDesktop extends CoreModule {
         this.setupGraphics();
         client.connect();
 
+        Thread.sleep(2000);
+        AnimalAddedEvent ev;
+        for (int i = 0; i < 5; i++) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ev = new AnimalAddedEvent();
+            ev.setAnimal(i);
+            ev.setTeam(i % 2);
+            ev.setSector(Sector.MIDDLE);
+
+            this.eventDispatcher.dispatch(ev);
+        }
+
+        this.eventDispatcher.dispatch(new GameAboutToStartEvent());
+
+        this.eventDispatcher.dispatch(new GameStartedEvent());
+
+        Thread.sleep(5000);
+
+        AddRockEvent event = new AddRockEvent();
+        event.setLocation(Direction.NEUTRAL);
+        event.setTeam(1);
+        this.eventDispatcher.dispatch(event);
+
+        Thread.sleep(5000);
+        event.setLocation(Direction.NEUTRAL);
+        event.setTeam(0);
+        this.eventDispatcher.dispatch(event);
+
+        Thread.sleep(5000);
+        event.setLocation(Direction.NEUTRAL);
+        event.setTeam(1);
+        this.eventDispatcher.dispatch(event);
+
+        Thread.sleep(5000);
+        event.setLocation(Direction.NEUTRAL);
+        event.setTeam(0);
+        this.eventDispatcher.dispatch(event);
+
+        Thread.sleep(5000);
+        event.setLocation(Direction.NEUTRAL);
+        event.setTeam(1);
+        this.eventDispatcher.dispatch(event);
     }
 
     /**
