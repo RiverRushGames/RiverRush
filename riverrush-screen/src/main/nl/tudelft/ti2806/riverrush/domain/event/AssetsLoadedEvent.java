@@ -8,7 +8,7 @@ import java.util.Map;
  * This event is called from the renderer when it has loaded all the assets. This is neccesary,
  * because we don't want the game to begin, when the renderer has not finished loading.
  */
-public class AssetsLoadedEvent implements Event {
+public class AssetsLoadedEvent extends AbstractAnimalEvent {
 
     @Override
     public String serialize(final Protocol protocol) {
@@ -28,6 +28,6 @@ public class AssetsLoadedEvent implements Event {
     @Override
     public Integer getAnimal() {
         // Has to be empty
-        return null;
+        return -1;
     }
 }

@@ -32,7 +32,7 @@ public abstract class EventTest {
         event = getInstance();
 
         Event returnEvent = event.deserialize(getTestMap());
-        assertEquals(returnEvent.getAnimal(), new Integer(getAnimalId()));
+        assertEquals(new Integer(getAnimalId()), returnEvent.getAnimal());
     }
 
     @Test

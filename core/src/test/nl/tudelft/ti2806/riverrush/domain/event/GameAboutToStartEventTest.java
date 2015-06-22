@@ -10,7 +10,7 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 /**
- * Created by Martijn on 12-6-2015.
+ * Test for {@link GameAboutToStartEvent}
  */
 public class GameAboutToStartEventTest extends AbstractAnimalEventTest {
 

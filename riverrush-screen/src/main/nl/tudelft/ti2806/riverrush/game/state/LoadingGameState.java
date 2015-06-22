@@ -1,5 +1,6 @@
 package nl.tudelft.ti2806.riverrush.game.state;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import nl.tudelft.ti2806.riverrush.domain.event.Event;
 import nl.tudelft.ti2806.riverrush.domain.event.EventDispatcher;
@@ -11,7 +12,7 @@ import nl.tudelft.ti2806.riverrush.screen.LoadingScreen;
  */
 public class LoadingGameState extends AbstractGameState {
 
-    private final Screen screen;
+    private Screen screen;
 
     /**
      * The state of the game that indicates that the game is busy loading assets. The purpose of
@@ -27,7 +28,9 @@ public class LoadingGameState extends AbstractGameState {
         super(eventDispatcher, gm);
 
         this.screen = new LoadingScreen(eventDispatcher);
-        this.game.setScreen(this.screen);
+        Gdx.app.postRunnable(() -> {
+            this.game.setScreen(this.screen);
+        });
     }
 
     @Override
@@ -52,7 +55,7 @@ public class LoadingGameState extends AbstractGameState {
 
     @Override
     public GameState waitForPlayers() {
-        this.screen.dispose();
+        Gdx.app.postRunnable(this.screen::dispose);
         return new WaitingGameState(this.dispatcher, this.game);
     }
 
